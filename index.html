@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Antoine Beuchat – Contact Info</title>
+  <style>
+    :root {
+      --text: #ffffff;
+      --subtext: #c7c7cc;
+      --link: #0a84ff;
+      --bg-start: #1c1c1e;
+      --bg-end: #2c2c2e;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: linear-gradient(180deg, var(--bg-start), var(--bg-end));
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 500px;
+      padding: 2.5rem 2rem;
+      background-color: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      letter-spacing: 0.5px;
+    }
+
+    p {
+      font-size: 1.05rem;
+      color: var(--subtext);
+      margin: 0.5rem 0;
+    }
+
+    .contact {
+      margin-top: 1.8rem;
+    }
+
+    .contact p {
+      margin: 0.4rem 0;
+      font-size: 1.1rem;
+      color: var(--text);
+    }
+
+    a {
+      color: var(--link);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    a:hover {
+      color: #66aaff;
+    }
+
+    .footer {
+      margin-top: 2.5rem;
+      font-size: 0.9rem;
+      color: var(--subtext);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Thanks for scanning the QR code</h1>
+    <p>If you found this item, please contact its owner:</p>
+
+    <div class="contact">
+      <p><strong>Antoine Beuchat</strong></p>
+      <p>Email: <a href="mailto:abeuchat@gmail.com">abeuchat@gmail.com</a></p>
+      <p>Phone: <a href="tel:+41763780199">+41 76 378 01 99</a></p>
+    </div>
+
+    <div class="footer">
+      <p>Thank you 🙏</p>
+    </div>
+  </div>
+</body>
+</html>
