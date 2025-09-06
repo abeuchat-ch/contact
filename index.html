@@ -62,10 +62,22 @@
       margin-bottom: 1.5rem;
     }
 
+    .icons a {
+      margin: 0 10px;
+      display: inline-block;
+    }
+
+    .icons img {
+      vertical-align: middle;
+      width: 28px;
+      filter: brightness(0) invert(1);
+    }
+
     .thankyou {
       font-size: 1rem;
       font-style: italic;
       color: #e0e0e0;
+      margin-top: 1rem;
     }
 
     a {
@@ -98,8 +110,14 @@
     <h1>Contact</h1>
     <div class="info">
       <div><strong>Antoine Beuchat</strong></div>
-      <div><a href="mailto:abeuchat@gmail.com">abeuchat@gmail.com</a></div>
-      <div><a href="tel:+41763780199">+41 76 378 01 99</a></div>
+      <div class="icons">
+        <a href="mailto:abeuchat@gmail.com" target="_blank">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Mail_%28iOS%29.svg" alt="Email">
+        </a>
+        <a href="https://wa.me/41763780199" target="_blank">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+        </a>
+      </div>
     </div>
     <div class="thankyou">
       Thank you for contacting me!
