@@ -9,9 +9,9 @@
       margin: 0;
       padding: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      color: #ffffff;
-      background: url('https://images.unsplash.com/photo-1591023351654-8e94ac2fd716?auto=format&fit=crop&w=1280&q=80') no-repeat center center fixed;
+      background: url('https://upload.wikimedia.org/wikipedia/commons/1/10/Z%C3%BCrich_-_Panorama_view_from_Uetliberg_-_2010-08-20.jpg') no-repeat center center fixed;
       background-size: cover;
+      color: #ffffff;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -33,14 +33,16 @@
       position: relative;
       z-index: 1;
       padding: 2rem;
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
+      background-color: rgba(0, 0, 0, 0.4);
+      border-radius: 20px;
     }
 
     h1 {
       font-size: 3rem;
       margin-bottom: 1.5rem;
       font-weight: 600;
-      letter-spacing: 0.8px;
+      letter-spacing: 0.5px;
     }
 
     .info {
@@ -49,7 +51,7 @@
     }
 
     a {
-      color: #0a84ff;
+      color: inherit;
       text-decoration: none;
     }
 
@@ -59,11 +61,11 @@
 
     @media (max-width: 600px) {
       h1 {
-        font-size: 2.4rem;
+        font-size: 2.3rem;
       }
 
       .info {
-        font-size: 1.05rem;
+        font-size: 1rem;
       }
     }
   </style>
