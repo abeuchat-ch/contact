@@ -5,22 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Contact – Antoine Beuchat</title>
   <style>
-    body {
+    html, body {
       margin: 0;
       padding: 0;
+      height: 100%;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       color: #ffffff;
       background: url('IMG_1336.jpeg') no-repeat center center fixed;
       background-size: cover;
       display: flex;
-      justify-content: center;
       align-items: center;
-      min-height: 100vh;
+      justify-content: center;
       text-align: center;
     }
 
     .overlay {
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
       height: 100%;
@@ -32,11 +32,13 @@
     .container {
       position: relative;
       z-index: 1;
-      padding: 2rem 2.5rem;
-      max-width: 500px;
+      padding: 3rem 3rem;
+      max-width: 640px;
+      width: 90%;
       background-color: rgba(0, 0, 0, 0.5); /* 50% transparency */
       border-radius: 20px;
       backdrop-filter: blur(10px);
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
     }
 
     h1 {
@@ -48,7 +50,7 @@
     .info {
       font-size: 1.2rem;
       line-height: 2rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
     }
 
     .thankyou {
@@ -73,6 +75,10 @@
 
       .info {
         font-size: 1.05rem;
+      }
+
+      .container {
+        padding: 2rem 1.5rem;
       }
     }
   </style>
