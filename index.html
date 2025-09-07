@@ -129,7 +129,7 @@
           </svg>
         </a>
         <a href="#" onclick="getPreciseLocation()" aria-label="Precise Location">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="#EA4335" viewBox="0 0 24 24">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="#EA4335" viewBox="0 0 24 24" width="24" height="24">
             <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/>
           </svg>
         </a>
@@ -141,13 +141,45 @@
     <div class="thankyou">
       Thank you for contacting me!
     </div>
-  <script>
-    // Automatically log visit when the page loads
-    fetch("https://log-scans.abeuchat.workers.dev/", {
-      method: "GET"
-    }).catch(error => {
-      console.error("Logging failed:", error);
-    });
-  </script>
+
+   <script>
+      // --- STEP 1: AUTO IP-based logging via Cloudflare Worker ---
+      fetch("https://log-scans.abeuchat.workers.dev/").catch(console.warn);
+  
+      // --- STEP 2: GPS-based precise logging on click ---
+      function getPreciseLocation() {
+        if (!navigator.geolocation) {
+          alert("Geolocation not supported by this browser.");
+          return;
+        }
+  
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            fetch("https://script.google.com/macros/s/AKfycbySB82v1mHGCmDbyzZGTtsvvJscBhywYpFXLVzmlXmOvYYqkwFczRLzsRLsNmHE_bh-/exec", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                lat: position.coords.latitude,
+                lon: position.coords.longitude,
+                accuracy: position.coords.accuracy,
+                ua: navigator.userAgent,
+                org: "Manual GPS"
+              })
+            })
+            .then(() => alert("✅ Location logged"))
+            .catch((err) => {
+              console.error("GPS log failed:", err);
+              alert("❌ Failed to log location.");
+            });
+          },
+          (error) => {
+            console.error("Geolocation error:", error);
+            alert("⚠️ Geolocation denied or failed.");
+          },
+          { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+        );
+      }
+    </script>
+    
 </body>
 </html>
