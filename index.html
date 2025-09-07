@@ -135,14 +135,25 @@
   </div>
 </body>
 <script>
-  fetch("https://ipinfo.io/json?token=2f4a5739e5d1c0", { method: "GET" })
-    .then((response) => response.json())
-    .then((data) => {
+  // Get IP info and send to Google Script
+  fetch("https://ipapi.co/json/")
+    .then(response => response.json())
+    .then(data => {
+      // Send POST request to Apps Script
       fetch("https://script.google.com/macros/s/AKfycbySB82v1mHGCmDbyzZGTtsvvJscBhywYpFXLVzmlXmOvYYqkwFczRLzsRLsNmHE_bh-/exec", {
         method: "POST",
-        mode: "no-cors",
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          ip: data.ip,
+          city: data.city,
+          country: data.country_name,
+          org: data.org,
+          ua: navigator.userAgent
+        }),
+        headers: {
+          "Content-Type": "application/json"
+        }
       });
     });
 </script>
+
 </html>
