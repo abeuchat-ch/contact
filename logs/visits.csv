@@ -1,1 +1,1 @@
-timestamp,ip,latitude,longitude,source
+Timestamp,IP Address,City,Country,Org,Latitude,Longitude,Accuracy,User Agent
