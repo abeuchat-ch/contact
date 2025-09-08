@@ -142,44 +142,32 @@
       Thank you for contacting me!
     </div>
 
-   <script>
-      // --- STEP 1: AUTO IP-based logging via Cloudflare Worker ---
-      fetch("https://log-scans.abeuchat.workers.dev/").catch(console.warn);
-  
-      // --- STEP 2: GPS-based precise logging on click ---
-      function getPreciseLocation() {
-        if (!navigator.geolocation) {
-          alert("Geolocation not supported by this browser.");
-          return;
-        }
-  
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            fetch("https://script.google.com/macros/s/AKfycbySB82v1mHGCmDbyzZGTtsvvJscBhywYpFXLVzmlXmOvYYqkwFczRLzsRLsNmHE_bh-/exec", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                lat: position.coords.latitude,
-                lon: position.coords.longitude,
-                accuracy: position.coords.accuracy,
-                ua: navigator.userAgent,
-                org: "Manual GPS"
-              })
-            })
-            .then(() => alert("✅ Location logged"))
-            .catch((err) => {
-              console.error("GPS log failed:", err);
-              alert("❌ Failed to log location.");
-            });
-          },
-          (error) => {
-            console.error("Geolocation error:", error);
-            alert("⚠️ Geolocation denied or failed.");
-          },
-          { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
-        );
-      }
-    </script>
+<script>
+  function sendGPS() {
+    if (!navigator.geolocation) return alert("Geolocation not supported");
+
+    navigator.geolocation.getCurrentPosition(
+      pos => {
+        fetch("https://log-scans.abeuchat.workers.dev/", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            gps: true,
+            lat: pos.coords.latitude,
+            lon: pos.coords.longitude,
+            accuracy: pos.coords.accuracy
+          })
+        });
+        alert("Location logged.");
+      },
+      err => {
+        console.error("GPS error", err);
+        alert("Failed to retrieve GPS");
+      },
+      { enableHighAccuracy: true, timeout: 8000 }
+    );
+  }
+</script>
     
 </body>
 </html>
