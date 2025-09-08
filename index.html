@@ -168,6 +168,29 @@
     );
   }
 </script>
+
+<script>
+    // Send IP-based log automatically on page load
+    window.addEventListener("DOMContentLoaded", () => {
+      fetch("https://log-scans.abeuchat.workers.dev/", {
+        method: "POST",
+        headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        gps: false,
+        city: "", // let Cloudflare fill this in
+        country: "",
+        org: "Cloudflare",
+        lat: "",
+        lon: "",
+        accuracy: ""
+      })
+    }).catch(err => {
+      console.error("Basic log failed:", err);
+    });
+    });
+</script>
     
 </body>
 </html>
