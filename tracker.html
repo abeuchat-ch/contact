@@ -45,7 +45,9 @@
 </head>
 <body>
   <h2>Live Visitor Tracker</h2>
-
+  
+  <button id="refreshBtn">🔄 Refresh Log</button>
+  
   <div id="container">
     <table id="logTable">
       <thead>
@@ -119,6 +121,8 @@
       }
     }
 
+    document.getElementById("refreshBtn").addEventListener("click", loadTable);
+    
     window.addEventListener("DOMContentLoaded", () => {
       initMap();
       loadTable();
