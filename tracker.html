@@ -124,8 +124,11 @@
       }
     }
 
-    document.getElementById("refreshBtn").addEventListener("click", loadTable);
-
+    <!-- document.getElementById("refreshBtn").addEventListener("click", loadTable); -->
+    document.getElementById("refreshBtn").addEventListener("click", () => {
+      alert("Button clicked");  // test if button works
+    });
+    
     window.addEventListener("DOMContentLoaded", () => {
       initMap();
       loadTable();
