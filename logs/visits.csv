@@ -1,4 +1,5 @@
 Timestamp,IP Address,City,Country,Org,Latitude,Longitude,Accuracy,User Agent
-"2025-09-09 15:27:56","188.155.84.175","ZÃÂ¼rich","CH","","46.3863808","6.8681728","2106.408459349723","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36"
-"2025-09-09 15:53:47","188.155.84.175","ZÃ¼rich","CH","","46.3863808","6.8681728","2106.408459349723","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36"
-"2025-09-09 15:53:58","188.155.84.175","Zürich","CH","","46.3863808","6.8681728","2106.408459349723","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36"
+"2025-09-09 15:27:56","188.155.84.175","ZÃÂÃÂ¼rich","CH","","46.3863808","6.8681728","2106.408459349723","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36"
+"2025-09-09 15:53:47","188.155.84.175","ZÃÂ¼rich","CH","","46.3863808","6.8681728","2106.408459349723","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36"
+"2025-09-09 15:53:58","188.155.84.175","ZÃ¼rich","CH","","46.3863808","6.8681728","2106.408459349723","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36"
+"2025-09-09 15:54:00","188.155.84.175","Zürich","CH","Cloudflare","","","","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36"
