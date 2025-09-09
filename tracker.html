@@ -146,6 +146,11 @@
   <script>
     let map, currentMarker;
 
+    function formatCoord(value) {
+      const num = parseFloat(value);
+      return isNaN(num) ? "-" : num.toFixed(2);
+    }
+       
     function initMap() {
       map = new google.maps.Map(document.getElementById("map"), {
         center: { lat: 47.3769, lng: 8.5417 },
@@ -198,8 +203,8 @@
             <td>${cols[1]}</td>
             <td>${cols[2]}</td>
             <td>${cols[3]}</td>
-            <td>${parseFloat(cols[5]).toFixed(2)}</td>
-            <td>${parseFloat(cols[6]).toFixed(2)}</td>
+            <td>${formatCoord(cols[5])}</td>
+            <td>${formatCoord(cols[6])}</td>
           `;
           tr.addEventListener("mouseover", () => setMarker(cols[5], cols[6]));
 
