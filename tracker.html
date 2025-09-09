@@ -1,97 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Visitor Tracker</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tracker</title>
   <style>
     body {
       font-family: sans-serif;
       margin: 20px;
-      background-color: #f9f9f9;
-    }
-    h2 {
-      font-weight: 500;
     }
     table {
-      border-collapse: collapse;
       width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
     }
     th, td {
-      border: 1px solid #aaa;
-      padding: 6px 10px;
+      border: 1px solid #ccc;
+      padding: 8px;
       text-align: left;
     }
-    th {
-      background-color: #eee;
-    }
-    tr:hover {
-      background-color: #ffffcc;
-      cursor: pointer;
-    }
-    #container {
-      display: flex;
-      gap: 20px;
-    }
     #map {
-      width: 50%;
-      height: 600px;
-      border: 1px solid #ccc;
+      width: 100%;
+      height: 400px;
+      margin-top: 24px;
     }
-    #logTable {
-      width: 50%;
-      font-size: 14px;
+    #refreshBtn {
+      margin-top: 10px;
+      padding: 8px 16px;
+      font-size: 16px;
+    }
+    #refreshStatus {
+      margin-top: 8px;
+      color: green;
     }
   </style>
 </head>
 <body>
-  <h2>Live Visitor Tracker</h2>
-  
-  <button id="refreshBtn">🔄 Refresh</button>
-  
-  <div id="container">
-    <table id="logTable">
-      <thead>
-        <tr>
-          <th>Timestamp</th>
-          <th>City</th>
-          <th>Country</th>
-          <th>Lat</th>
-          <th>Lon</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
+  <h1>📍 Scan Tracker</h1>
 
-    <div id="map"></div>
-  </div>
+  <button id="refreshBtn">🔁 Refresh Table</button>
+  <div id="refreshStatus"></div>
 
-  <!-- Advanced Marker library (included by setting v=beta) -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCP8qV_bNgjM4RdtJAhrwJksPLBFJRBidQ&libraries=marker&v=beta"></script>
+  <table id="logTable">
+    <thead>
+      <tr>
+        <th>Timestamp</th>
+        <th>City</th>
+        <th>Country</th>
+        <th>Lat</th>
+        <th>Lon</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <div id="map"></div>
 
   <script>
     let map;
-    let marker;
-
-    function initMap() {
-      map = new google.maps.Map(document.getElementById("map"), {
-        center: { lat: 20, lng: 0 },
-        zoom: 2,
-        mapId: "DEMO_MAP_ID", // Optional
-      });
-    }
+    let activeMarker;
 
     function setMarker(lat, lon) {
-      if (!lat || !lon || isNaN(lat) || isNaN(lon)) return;
+      const position = { lat: parseFloat(lat), lng: parseFloat(lon) };
+      if (!map) return;
 
-      if (marker) marker.map = null;
+      if (activeMarker) activeMarker.setMap(null);
 
-      marker = new google.maps.marker.AdvancedMarkerElement({
-        map: map,
-        position: { lat: parseFloat(lat), lng: parseFloat(lon) },
+      activeMarker = new google.maps.Marker({
+        position,
+        map,
+        title: "Visitor Location",
       });
 
-      map.setCenter(marker.position);
-      map.setZoom(6);
+      map.panTo(position);
     }
 
     async function loadTable() {
@@ -118,21 +99,31 @@
 
           tbody.appendChild(tr);
         });
+
+        const now = new Date().toLocaleTimeString();
+        document.getElementById("refreshStatus").textContent = `🔄 Refreshed at ${now}`;
       } catch (err) {
         console.error("Error loading CSV:", err);
         alert("Failed to load visitor data.");
       }
     }
 
-    <!-- document.getElementById("refreshBtn").addEventListener("click", loadTable); -->
-    document.getElementById("refreshBtn").addEventListener("click", () => {
-      alert("Button clicked");  // test if button works
-    });
-    
-    window.addEventListener("DOMContentLoaded", () => {
-      initMap();
+    function initMap() {
+      map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: 46.8182, lng: 8.2275 }, // Switzerland
+        zoom: 5,
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
       loadTable();
+      document.getElementById("refreshBtn").addEventListener("click", loadTable);
     });
+  </script>
+
+  <!-- Load Google Maps -->
+  <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCP8qV_bNgjM4RdtJAhrwJksPLBFJRBidQ&callback=initMap">
   </script>
 </body>
 </html>
