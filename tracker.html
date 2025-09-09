@@ -1,83 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Live QR Logs</title>
+  <meta charset="UTF-8">
+  <title>Visitor Tracker</title>
   <style>
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: white;
-      color: #000;
-      margin: 2rem;
+      font-family: sans-serif;
+      margin: 20px;
+      background-color: #f9f9f9;
+    }
+    h2 {
+      font-weight: 500;
     }
     table {
-      width: 100%;
       border-collapse: collapse;
-      margin-top: 2rem;
+      width: 100%;
     }
     th, td {
-      padding: 8px 12px;
-      border-bottom: 1px solid #ccc;
+      border: 1px solid #aaa;
+      padding: 6px 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #eee;
     }
     tr:hover {
-      background-color: #f5f5f5;
+      background-color: #ffffcc;
       cursor: pointer;
     }
-    .loading {
-      font-style: italic;
-      color: gray;
+    #container {
+      display: flex;
+      gap: 20px;
+    }
+    #map {
+      width: 50%;
+      height: 600px;
+      border: 1px solid #ccc;
+    }
+    #logTable {
+      width: 50%;
+      font-size: 14px;
     }
   </style>
 </head>
 <body>
+  <h2>Live Visitor Tracker</h2>
 
-<h2>Live Visitor Log</h2>
-<p class="loading" id="status">Loading log file…</p>
-<table id="logTable" style="display:none;">
-  <thead>
-    <tr>
-      <th>Time</th>
-      <th>IP</th>
-      <th>City</th>
-      <th>Country</th>
-      <th>Org</th>
-      <th>Lat</th>
-      <th>Lon</th>
-      <th>Accuracy</th>
-      <th>UA</th>
-    </tr>
-  </thead>
-  <tbody></tbody>
-</table>
+  <div id="container">
+    <table id="logTable">
+      <thead>
+        <tr>
+          <th>Timestamp</th>
+          <th>City</th>
+          <th>Country</th>
+          <th>Lat</th>
+          <th>Lon</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
 
-<script>
-  async function loadCSV() {
-    const url = "https://raw.githubusercontent.com/abeuchat-ch/contact/main/logs/visits.csv";
-    const res = await fetch(url);
-    const text = await res.text();
+    <div id="map"></div>
+  </div>
 
-    const rows = text.trim().split('\n').slice(1); // skip header
-    const tbody = document.querySelector("#logTable tbody");
-    tbody.innerHTML = ""; // Clear old content
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY"></script>
 
-    for (const row of rows.reverse()) {  // most recent first
-      const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/); // CSV-safe split
-      const tr = document.createElement("tr");
-      cols.forEach(c => {
-        const td = document.createElement("td");
-        td.textContent = c.replace(/^"|"$/g, '').replace(/""/g, '"');
-        tr.appendChild(td);
+  <script>
+    let map;
+    let marker;
+
+    function initMap() {
+      map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: 20, lng: 0 },
+        zoom: 2,
       });
-      tbody.appendChild(tr);
     }
 
-    document.getElementById("status").style.display = "none";
-    document.getElementById("logTable").style.display = "table";
-  }
+    function setMarker(lat, lon) {
+      if (marker) marker.setMap(null);
+      if (!lat || !lon || isNaN(lat) || isNaN(lon)) return;
 
-  loadCSV();
-  setInterval(loadCSV, 60000); // auto-refresh every 60s
-</script>
+      marker = new google.maps.Marker({
+        position: { lat: parseFloat(lat), lng: parseFloat(lon) },
+        map: map,
+      });
 
+      map.setCenter(marker.getPosition());
+      map.setZoom(6);
+    }
+
+    async function loadTable() {
+      try {
+        const res = await fetch("https://raw.githubusercontent.com/abeuchat-ch/contact/main/logs/visits.csv");
+        const text = await res.text();
+        const rows = text.trim().split("\n").slice(1).reverse(); // Skip header
+
+        const tbody = document.querySelector("#logTable tbody");
+        tbody.innerHTML = "";
+
+        rows.forEach(row => {
+          const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(s => s.replace(/"/g, ""));
+
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${cols[0]}</td>
+            <td>${cols[2]}</td>
+            <td>${cols[3]}</td>
+            <td>${cols[5]}</td>
+            <td>${cols[6]}</td>
+          `;
+          tr.addEventListener("mouseover", () => setMarker(cols[5], cols[6]));
+
+          tbody.appendChild(tr);
+        });
+      } catch (err) {
+        console.error("Error loading CSV:", err);
+        alert("Failed to load visitor data.");
+      }
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      initMap();
+      loadTable();
+    });
+  </script>
 </body>
 </html>
