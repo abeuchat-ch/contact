@@ -198,8 +198,8 @@
             <td>${cols[1]}</td>
             <td>${cols[2]}</td>
             <td>${cols[3]}</td>
-            <td>${cols[5]}</td>
-            <td>${cols[6]}</td>
+            <td>${parseFloat(cols[5]).toFixed(2)}</td>
+            <td>${parseFloat(cols[6]).toFixed(2)}</td>
           `;
           tr.addEventListener("mouseover", () => setMarker(cols[5], cols[6]));
 
