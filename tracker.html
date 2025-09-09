@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Live QR Logs</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: white;
+      color: #000;
+      margin: 2rem;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 2rem;
+    }
+    th, td {
+      padding: 8px 12px;
+      border-bottom: 1px solid #ccc;
+    }
+    tr:hover {
+      background-color: #f5f5f5;
+      cursor: pointer;
+    }
+    .loading {
+      font-style: italic;
+      color: gray;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Live Visitor Log</h2>
+<p class="loading" id="status">Loading log file…</p>
+<table id="logTable" style="display:none;">
+  <thead>
+    <tr>
+      <th>Time</th>
+      <th>IP</th>
+      <th>City</th>
+      <th>Country</th>
+      <th>Org</th>
+      <th>Lat</th>
+      <th>Lon</th>
+      <th>Accuracy</th>
+      <th>UA</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<script>
+  async function loadCSV() {
+    const url = "https://raw.githubusercontent.com/abeuchat-ch/contact/main/logs/visits.csv";
+    const res = await fetch(url);
+    const text = await res.text();
+
+    const rows = text.trim().split('\n').slice(1); // skip header
+    const tbody = document.querySelector("#logTable tbody");
+    tbody.innerHTML = ""; // Clear old content
+
+    for (const row of rows.reverse()) {  // most recent first
+      const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/); // CSV-safe split
+      const tr = document.createElement("tr");
+      cols.forEach(c => {
+        const td = document.createElement("td");
+        td.textContent = c.replace(/^"|"$/g, '').replace(/""/g, '"');
+        tr.appendChild(td);
+      });
+      tbody.appendChild(tr);
+    }
+
+    document.getElementById("status").style.display = "none";
+    document.getElementById("logTable").style.display = "table";
+  }
+
+  loadCSV();
+  setInterval(loadCSV, 60000); // auto-refresh every 60s
+</script>
+
+</body>
+</html>
