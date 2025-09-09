@@ -51,6 +51,7 @@
     async function loadTable() {
       try {
         const res = await fetch("https://raw.githubusercontent.com/abeuchat-ch/contact/main/logs/visits.csv?t=" + Date.now());
+        console.log("Fetched updated CSV at", new Date().toISOString());
         const text = await res.text();
         const rows = text.trim().split("\n").slice(1).reverse();
 
