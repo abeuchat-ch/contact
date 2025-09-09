@@ -56,6 +56,7 @@
         const url = "https://raw.githubusercontent.com/abeuchat-ch/contact/main/logs/visits.csv?t=" + Date.now();
         const res = await fetch(url);
         const text = await res.text();
+        console.log("📄 Raw CSV Content:\n", text);
         const rows = text.trim().split("\n").slice(1).reverse(); // Skip header
 
         console.log("✅ Table reloaded at", new Date().toLocaleString());
