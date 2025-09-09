@@ -1,26 +1,64 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>CSV Tracker</title>
+  <title>Live Tracker</title>
+  <style>
+    #map { height: 400px; width: 100%; margin-top: 20px; }
+    table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+    #refreshNote { margin-top: 10px; font-size: 0.9em; color: gray; }
+  </style>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCP8qV_bNgjM4RdtJAhrwJksPLBFJRBidQ"></script>
 </head>
 <body>
-  <button onclick="refreshLog()">🔄 Refresh</button>
-  <p id="debug"></p>
-  <table id="logTable" border="1">
+  <h2>QR Scan Tracker</h2>
+  <button onclick="refreshTable()">🔄 Refresh</button>
+  <div id="refreshNote"></div>
+
+  <table id="logTable">
     <thead>
       <tr>
-        <th>Time</th><th>City</th><th>Country</th><th>Lat</th><th>Lon</th>
+        <th>Timestamp</th>
+        <th>City</th>
+        <th>Country</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
       </tr>
     </thead>
     <tbody></tbody>
   </table>
 
+  <div id="map"></div>
+
   <script>
+    let map;
+    let marker = null;
+
+    function initMap() {
+      map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: 46.8, lng: 8.2 }, // Default to Switzerland
+        zoom: 6,
+      });
+    }
+
+    function setMarker(lat, lon) {
+      if (marker) marker.setMap(null);
+      marker = new google.maps.Marker({
+        position: { lat: parseFloat(lat), lng: parseFloat(lon) },
+        map: map,
+      });
+      map.panTo(marker.getPosition());
+      map.setZoom(10);
+    }
+
     async function loadTable() {
       try {
-        const res = await fetch("https://raw.githubusercontent.com/abeuchat-ch/contact/main/logs/visits.csv?t=" + Date.now());
+        const url = "https://raw.githubusercontent.com/abeuchat-ch/contact/main/logs/visits.csv?t=" + Date.now();
+        const res = await fetch(url);
         const text = await res.text();
-        const rows = text.trim().split("\n").slice(1).reverse();
+        const rows = text.trim().split("\n").slice(1).reverse(); // Skip header
+
+        console.log("✅ Table reloaded at", new Date().toLocaleString());
 
         const tbody = document.querySelector("#logTable tbody");
         tbody.innerHTML = "";
@@ -36,25 +74,29 @@
             <td>${cols[5]}</td>
             <td>${cols[6]}</td>
           `;
+
+          tr.addEventListener("mouseover", () => {
+            if (cols[5] && cols[6]) setMarker(cols[5], cols[6]);
+          });
+
           tbody.appendChild(tr);
         });
-
-        console.log("Table refreshed at", new Date().toISOString());
-
       } catch (err) {
-        console.error("Error loading CSV:", err);
+        console.error("❌ Failed to load CSV:", err);
         alert("Failed to load visitor data.");
       }
     }
 
-    function refreshLog() {
-      console.log("Refresh button clicked");
-      document.getElementById("debug").innerText = "Refreshing at " + new Date().toLocaleTimeString();
+    function refreshTable() {
       loadTable();
+      const now = new Date().toLocaleTimeString();
+      document.getElementById("refreshNote").textContent = `🔄 Refreshed at ${now}`;
     }
 
-    // Auto-load when page opens
-    window.onload = loadTable;
+    window.onload = () => {
+      initMap();
+      loadTable();
+    };
   </script>
 </body>
 </html>
