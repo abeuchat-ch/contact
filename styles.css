@@ -47,7 +47,7 @@ body {
   position: relative;
   z-index: 1;
   width: 95%;
-  max-width: 1000px;
+  max-width: 600px;
   margin: auto;
   padding: 2rem 2.5rem;
   background-color: rgba(0, 0, 0, 0.55);
