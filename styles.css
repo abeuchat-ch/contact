@@ -1,0 +1,185 @@
+/* Base */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: #ffffff;
+  background: url('IMG_1336.jpeg') no-repeat center center fixed;
+  background-size: cover;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Translucent overlay (used on both pages) */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 0;
+}
+
+/* Card container (suitable for both pages) */
+.container {
+  position: relative;
+  z-index: 1;
+  width: 95%;
+  max-width: 1000px;
+  margin: auto;
+  padding: 2rem 2.5rem;
+  background-color: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(12px);
+  border-radius: 24px;
+  box-shadow: 0 0 35px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* works for tracker; fine for contact too */
+  align-items: center;
+  text-align: center;
+}
+
+/* Headings */
+h1 {
+  font-size: 2.4rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+}
+
+/* Contact page: two columns + centered separator */
+.info-columns {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 18px;
+  margin: 0.5rem 0 0.75rem;
+  position: relative;
+}
+
+.info-columns .info {
+  text-align: center;
+  min-width: 200px;
+  padding: 0 14px;
+}
+
+.info-columns::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 6px;
+  bottom: 6px;
+  width: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0),
+    rgba(255,255,255,0.7),
+    rgba(255,255,255,0)
+  );
+  box-shadow: 0 0 8px rgba(255,255,255,0.25);
+  pointer-events: none;
+}
+
+/* Icons */
+.icons a {
+  margin: 0 10px;
+  display: inline-block;
+}
+
+.icons img {
+  vertical-align: middle;
+  width: 28px;
+  filter: brightness(0) invert(1);
+}
+
+.icons svg {
+  width: 28px;
+  height: 28px;
+  vertical-align: middle;
+}
+
+/* Thank you + email (shared style) */
+.thankyou,
+.contact-email {
+  font-size: 1rem;
+  font-style: italic;
+  color: #e0e0e0;
+  margin-top: 0.4rem;
+}
+
+/* Links */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* Tracker-specific pieces */
+#map {
+  height: 350px;
+  width: 100%;
+  border-radius: 12px;
+}
+
+table {
+  width: 100%;
+  table-layout: auto;
+  border-collapse: collapse;
+  color: white;
+  font-size: 0.95rem;
+}
+th, td {
+  padding: 0.6rem 0.7rem;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 120px;
+}
+th:nth-child(1), td:nth-child(1) { max-width: 160px; }
+th:nth-child(2), td:nth-child(2) { max-width: 110px; }
+th:nth-child(3), td:nth-child(3) { max-width: 80px; }
+
+thead { background-color: rgba(255, 255, 255, 0.1); }
+tbody tr { border-top: 1px solid rgba(255, 255, 255, 0.15); }
+tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+  .container {
+    padding: 1.5rem;
+  }
+  h1 {
+    font-size: 1.8rem;
+  }
+  table {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .info {
+    font-size: 1.05rem;
+  }
+  .info-columns {
+    gap: 12px;
+  }
+  .info-columns .info {
+    padding: 0 8px;
+  }
+  .info-columns::after {
+    display: none; /* hide separator on narrow screens */
+  }
+}
+  
