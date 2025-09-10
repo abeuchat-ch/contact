@@ -79,8 +79,8 @@ h1 {
 }
 
 .info-columns .info {
+  flex: 1;            /* equal width for both sides */
   text-align: center;
-  min-width: 100px;
   padding: 0 12px;
   min-width: 140px;
   box-sizing: border-box;
