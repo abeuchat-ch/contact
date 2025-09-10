@@ -23,15 +23,15 @@
 
     .info-columns {
       display: flex;
-      justify-content: space-around;
+      justify-content: center;  /* Center them instead of spacing far apart */
+      gap: 60px;                /* Adjust spacing between the two blocks */
       align-items: flex-start;
-      width: 100%;
       margin: 1.5rem 0;
     }
     
     .info-columns .info {
-      flex: 1;
       text-align: center;
+      min-width: 200px;         /* Keeps them neat, not too narrow */
     }
     
     .overlay {
