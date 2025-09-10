@@ -26,6 +26,22 @@ body {
   z-index: 0;
 }
 
+/* Wrap table in a scrollable container */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; /* smooth scroll on iOS */
+}
+
+#logTable {
+  width: 100%;
+  min-width: 600px; /* force horizontal scroll on small screens */
+  table-layout: auto;
+  border-collapse: collapse;
+  color: white;
+  font-size: 0.95rem;
+}
+
 /* Card container (suitable for both pages) */
 .container {
   position: relative;
