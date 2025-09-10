@@ -46,8 +46,8 @@ body {
 .container {
   position: relative;
   z-index: 1;
-  width: 95%;
-  max-width: 600px;
+  width: 97%;
+  max-width: 1200px;
   margin: auto;
   padding: 2rem 2.5rem;
   background-color: rgba(0, 0, 0, 0.55);
@@ -146,7 +146,7 @@ a:hover {
 
 /* Tracker-specific pieces */
 #map {
-  height: 350px;
+  height: 400px;
   width: 100%;
   border-radius: 12px;
 }
