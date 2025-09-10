@@ -4,124 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Contact</title>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      color: #ffffff;
-      background: url('IMG_1336.jpeg') no-repeat center center fixed;
-      background-size: cover;
-    }
-
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .info-columns {
-      display: flex;
-      justify-content: center;  /* Center them instead of spacing far apart */
-      gap: 60px;                /* Adjust spacing between the two blocks */
-      align-items: flex-start;
-      margin: 1.5rem 0;
-    }
-    
-    .info-columns .info {
-      text-align: center;
-      min-width: 200px;         /* Keeps them neat, not too narrow */
-    }
-    
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      background: rgba(0, 0, 0, 0.45);
-      z-index: 0;
-    }
-
-    .container {
-      position: relative;
-      z-index: 1;
-      width: 90%;
-      max-width: 800px;
-      min-height: 350px;
-      margin: auto;
-      padding: 2rem 3rem 2.5rem 3rem;
-      background-color: rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(12px);
-      border-radius: 24px;
-      box-shadow: 0 0 35px rgba(0, 0, 0, 0.4);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
-
-    h1 {
-      font-size: 2.8rem;
-      margin-bottom: 1.2rem;
-      font-weight: 600;
-    }
-
-    .info {
-      font-size: 1.2rem;
-      line-height: 2rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .icons a {
-      margin: 0 10px;
-      display: inline-block;
-    }
-    
-    .icons img {
-      vertical-align: middle;
-      width: 28px;
-      filter: brightness(0) invert(1); /* keep white style for images only */
-    }
-    
-    .icons svg {
-      width: 28px;
-      height: 28px;
-      vertical-align: middle;
-    }
-
-    .thankyou {
-      font-size: 1rem;
-      font-style: italic;
-      color: #e0e0e0;
-      margin-top: 1rem;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 2.2rem;
-      }
-
-      .info {
-        font-size: 1.05rem;
-      }
-
-      .container {
-        padding: 2rem 1.5rem;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="overlay"></div>
@@ -141,9 +24,8 @@
           </a>
           <a href="https://wa.me/41763780199" target="_blank" aria-label="WhatsApp">
             <!-- WhatsApp icon -->
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28">
-            <path fill="#25D366" d="M20.52 3.48A11.78 11.78 0 0012 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.2-1.63A11.9 11.9 0 0012 24c6.63 0 12-5.37 12-12 0-3.17-1.23-6.15-3.48-8.52z"/>
-            <path fill="#FFF" d="M17.49 14.37c-.27-.14-1.59-.78-1.84-.87-.25-.09-.43-.14-.61.14-.18.27-.7.87-.86 1.05-.16.18-.32.2-.59.07-.27-.14-1.14-.42-2.17-1.34-.8-.71-1.34-1.58-1.5-1.85-.16-.27-.02-.4.12-.55.13-.13.27-.34.41-.5.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.5-1.2-.69-1.64-.18-.43-.36-.37-.5-.38-.14-.01-.3-.01-.46-.01s-.43.06-.65.3c-.22.24-.85.83-.85 2.03s.87 2.35 1 2.52c.14.18 1.73 2.64 4.2 3.7.59.26 1.06.42 1.42.54.59.2 1.13.17 1.58.1.48-.07 1.49-.61 1.7-1.18.21-.57.21-1.02.15-1.18-.06-.1-.21-.17-.44-.28z"/>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="#25D366" viewBox="0 0 24 24">
+            <path d="M12.04 2.003c-5.51 0-9.982 4.475-9.982 9.984 0 1.76.46 3.481 1.33 4.998L2 22l5.192-1.374a9.986 9.986 0 004.849 1.245h.001c5.509 0 9.984-4.474 9.984-9.984s-4.475-9.984-9.984-9.984zm0 18.271a8.31 8.31 0 01-4.238-1.17l-.304-.18-3.083.815.823-3.006-.197-.31a8.26 8.26 0 01-1.27-4.357c0-4.563 3.713-8.275 8.275-8.275s8.276 3.712 8.276 8.275-3.713 8.276-8.276 8.276zm4.588-6.211c-.251-.125-1.482-.731-1.711-.814-.229-.084-.396-.125-.562.125s-.645.814-.791.982c-.146.167-.292.188-.542.063-.25-.125-1.056-.39-2.012-1.243-.743-.662-1.243-1.479-1.389-1.73-.146-.25-.016-.384.11-.509.113-.112.25-.292.375-.438.125-.146.167-.25.25-.417.083-.167.042-.313-.02-.438-.063-.125-.563-1.355-.771-1.858-.204-.489-.412-.417-.562-.426-.146-.01-.313-.012-.479-.012-.167 0-.437.063-.667.313-.23.25-.875.854-.875 2.084s.896 2.417 1.021 2.583c.125.167 1.76 2.688 4.271 3.77.596.257 1.062.41 1.425.524.598.191 1.142.164 1.572.1.479-.071 1.482-.604 1.691-1.188.209-.584.209-1.084.146-1.188-.063-.104-.229-.167-.479-.292z"/>
           </svg>
           </a>
         </div>
@@ -165,7 +47,7 @@
       Thank you  !
     </div>
     
-    <div style="margin-top: 12px;">
+    <div class="contact-email">
       <a href="mailto:abeuchat@gmail.com">abeuchat@gmail.com</a>
     </div>
     
@@ -218,6 +100,5 @@
     });
     });
 </script>
-    
 </body>
 </html>
