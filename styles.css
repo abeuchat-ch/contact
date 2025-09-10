@@ -81,9 +81,13 @@ h1 {
 .info-columns .info {
   flex: 1;            /* equal width for both sides */
   text-align: center;
-  padding: 0 12px;
-  min-width: 140px;
+  padding: 0 16px;
+  min-width: 160px;
   box-sizing: border-box;
+}
+
+.info-columns .info div strong {
+  white-space: nowrap;   /* keep text on one line */
 }
 
 .info-columns::after {
