@@ -73,7 +73,7 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  gap: 18px;
+  gap: 40px;
   margin: 0.5rem 0 0.75rem;
   position: relative;
 }
@@ -81,7 +81,9 @@ h1 {
 .info-columns .info {
   text-align: center;
   min-width: 100px;
-  padding: 0 8px;
+  padding: 0 12px;
+  min-width: 140px;
+  box-sizing: border-box;
 }
 
 .info-columns::after {
